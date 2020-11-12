@@ -35,7 +35,7 @@
             <div class="col-2 align-middle border border-dark bg-success " >
                 <h5 class="text-center">9:00am</h5>
             </div>
-            <textarea id="0" class="col-8 past"></textarea>           
+            <textarea id="9:00" id="0" class="col-8 "></textarea>           
             <button class="col-1 border border-dark"> Button </button>
         </div>
 
@@ -43,7 +43,7 @@
             <div class="col-2 bg-success border border-dark align-middle">
               <h5 class="text-center">10:00am</h5>
             </div>
-            <textarea id="0" class="col-8 past"></textarea>                         
+            <textarea id="1" class="col-8 "></textarea>                         
             <button class="col-1 border border-dark">
                 Button
             </button>
@@ -53,7 +53,7 @@
             <div class="col-2 bg-success border border-dark align-middle">
               <h5 class="text-center">11:00am</h5>
             </div>
-            <textarea id="0" class="col-8 past"></textarea>            
+            <textarea id="2" class="col-8 "></textarea>            
             <button class="col-1 border border-dark">
                 Button
             </button>
@@ -64,7 +64,7 @@
             <div class="col-2 align-middle border border-dark bg-success " >
                 <h5 class="text-center">12:00pm</h5>
             </div>
-            <textarea id="0" class="col-8 present"></textarea>           
+            <textarea id="3" class="col-8 "></textarea>           
             <button class="col-1 border border-dark"> Button </button>
         </div>
 
@@ -72,7 +72,7 @@
             <div class="col-2 bg-success border border-dark align-middle">
               <h5 class="text-center">01:00pm</h5>
             </div>
-            <textarea id="0" class="col-8 past"></textarea>            
+            <textarea id="4" class="col-8 "></textarea>            
             <button class="col-1 border border-dark">
                 Button
             </button>
@@ -82,7 +82,7 @@
             <div class="col-2 bg-success border border-dark align-middle">
               <h5 class="text-center">02:00pm</h5>
             </div>
-            <textarea id="0" class="col-8 past"></textarea>            
+            <textarea id="5" class="col-8 "></textarea>            
             <button class="col-1 border border-dark">
                 Button
             </button>
@@ -92,7 +92,7 @@
             <div class="col-2 bg-success border border-dark align-middle">
               <h5 class="text-center">03:00pm</h5>
             </div>
-            <textarea id="0" class="col-8 past"></textarea>            
+            <textarea id="6" class="col-8 "></textarea>            
             <button class="col-1 border border-dark">
                 Button
             </button>
@@ -102,7 +102,7 @@
             <div class="col-2 bg-success border border-dark align-middle">
               <h5 class="text-center">04:00pm</h5>
             </div>
-            <textarea id="0" class="col-8 past"></textarea>            
+            <textarea id="7" class="col-8 "></textarea>            
             <button class="col-1 border border-dark">
                 Button
             </button>
@@ -112,7 +112,7 @@
             <div class="col-2 bg-success border border-dark align-middle">
               <h5 class="text-center">05:00pm</h5>
             </div>
-            <textarea id="0" class="col-8 past"></textarea>            
+            <textarea id="8" class="col-8 "></textarea>            
             <button class="col-1 border border-dark">
                 Button
             </button>
@@ -123,7 +123,7 @@
               
             <div class="col-8 bg-success border border-dark border-left-0 border-right-0"> </div>
                        
-            <button class="col-1 bg-success border-dark border-left-0 border-right-0">
+            <button class="col-1 bg-success border-dark border-left-0 border-right-0"> 
                 
             </button>
         </div>
@@ -142,11 +142,36 @@
 
     <script type="text/javascript">
     
-   $("#currentDay").html(moment().format('dddd, MMMM Do'));
+
+    //add the current day to the header  
+    $("#currentDay").html(moment().format('dddd, MMMM Do'));
+    
+    
     //console.log(dateDiv);
     //dateDiv.text = moment().format('dddd, MMMM Do');
-    
-    
+      var a = moment().format('h:mm a').charAt(0);
+      console.log(parseInt(a));
+      //$( "textarea" ).addClass("present");
+
+    //hightlight text box based on time of day (past present or future)
+    $( "textarea" ).addClass(function( index ) {
+      var addedClass;
+      var caltime = 9;
+      var time = moment().format('h:mm a').charAt(0);
+
+      if (parseInt(time) < 9 ) {
+        addedClass = "future";
+      } else if (parseInt(time) > 17) {
+        addedClass = "past";
+      }else if (parseInt(caltime) - parseInt(time) === 0) {
+        addedClass = "present";
+      } else if (parseInt(caltime) - parseInt(time) > 0) {
+        addedClass = "future";
+      }else if (parseInt(caltime) - parseInt(time) < 0) {
+        addedClass = "past";
+      }   
+      return addedClass;
+    });
     
     </script>
 

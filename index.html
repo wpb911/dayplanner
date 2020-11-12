@@ -19,6 +19,7 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="style.css" />
+
     <title>Work Day Scheduler</title>
   </head>
 
@@ -29,10 +30,126 @@
       <p id="currentDay" class="lead"></p>
     </header>
     <div class="container">
-      <!-- Timeblocks go here -->
+        <div class="row">
+            <!--<div class="col-2 bg-success  align-middle"></div>-->
+            <div class="col-2 align-middle border border-dark bg-success " >
+                <h5 class="text-center">9:00am</h5>
+            </div>
+            <textarea id="0" class="col-8 past"></textarea>           
+            <button class="col-1 border border-dark"> Button </button>
+        </div>
+
+        <div class="row">
+            <div class="col-2 bg-success border border-dark align-middle">
+              <h5 class="text-center">10:00am</h5>
+            </div>
+            <textarea id="0" class="col-8 past"></textarea>                         
+            <button class="col-1 border border-dark">
+                Button
+            </button>
+        </div>
+
+        <div class="row">
+            <div class="col-2 bg-success border border-dark align-middle">
+              <h5 class="text-center">11:00am</h5>
+            </div>
+            <textarea id="0" class="col-8 past"></textarea>            
+            <button class="col-1 border border-dark">
+                Button
+            </button>
+        </div>
+
+        <div class="row">
+            <!--<div class="col-2 bg-success  align-middle"></div>-->
+            <div class="col-2 align-middle border border-dark bg-success " >
+                <h5 class="text-center">12:00pm</h5>
+            </div>
+            <textarea id="0" class="col-8 present"></textarea>           
+            <button class="col-1 border border-dark"> Button </button>
+        </div>
+
+        <div class="row">
+            <div class="col-2 bg-success border border-dark align-middle">
+              <h5 class="text-center">01:00pm</h5>
+            </div>
+            <textarea id="0" class="col-8 past"></textarea>            
+            <button class="col-1 border border-dark">
+                Button
+            </button>
+        </div>
+
+        <div class="row">
+            <div class="col-2 bg-success border border-dark align-middle">
+              <h5 class="text-center">02:00pm</h5>
+            </div>
+            <textarea id="0" class="col-8 past"></textarea>            
+            <button class="col-1 border border-dark">
+                Button
+            </button>
+        </div>
+
+        <div class="row">
+            <div class="col-2 bg-success border border-dark align-middle">
+              <h5 class="text-center">03:00pm</h5>
+            </div>
+            <textarea id="0" class="col-8 past"></textarea>            
+            <button class="col-1 border border-dark">
+                Button
+            </button>
+        </div>
+
+        <div class="row">
+            <div class="col-2 bg-success border border-dark align-middle">
+              <h5 class="text-center">04:00pm</h5>
+            </div>
+            <textarea id="0" class="col-8 past"></textarea>            
+            <button class="col-1 border border-dark">
+                Button
+            </button>
+        </div>
+
+        <div class="row">
+            <div class="col-2 bg-success border border-dark align-middle">
+              <h5 class="text-center">05:00pm</h5>
+            </div>
+            <textarea id="0" class="col-8 past"></textarea>            
+            <button class="col-1 border border-dark">
+                Button
+            </button>
+        </div>
+
+        <div class="row ">
+            <div class="col-2 bg-success border border-dark border-right-0"></div>
+              
+            <div class="col-8 bg-success border border-dark border-left-0 border-right-0"> </div>
+                       
+            <button class="col-1 bg-success border-dark border-left-0 border-right-0">
+                
+            </button>
+        </div>
+     
+      
     </div>
+
+    
+
+
+
+
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+
+    <script type="text/javascript">
+    
+   $("#currentDay").html(moment().format('dddd, MMMM Do'));
+    //console.log(dateDiv);
+    //dateDiv.text = moment().format('dddd, MMMM Do');
+    
+    
+    
+    </script>
+
+
   </body>
 </html>

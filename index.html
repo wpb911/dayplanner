@@ -125,8 +125,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
 
     <script type="text/javascript">
+    
+    //initialize variables
     var test = false ;
-    var dayPlanArr = [];
+     
 
 
     //add the current day to the header  
@@ -134,14 +136,26 @@
         
     var a = moment().format('HH:mm').charAt(0) + moment().format('HH:mm').charAt(1);
     console.log(parseInt(a));
-      //retrieve planned its from local storage and put them on the day planner
+
+      //retrieve the day's plans from local storage and put them on the day planner
 
     let dayPlans = JSON.parse(localStorage.getItem("dayPlans"));
     if (dayPlans !== null) {
       dayPlanArr = dayPlans;
-    }
-    console.log(parseInt(dayPlanArr));
+    } else {
 
+      dayPlanArr = new Array(9);
+    }
+    console.log(dayPlanArr);
+
+    function updateTextArea(index) {
+      if (dayPlanArr[index] !== "") {
+        let txtEl = "#" + index;
+        $(txtEl).val(dayPlanArr[index]);
+        console.log($(txtEl).text(dayPlanArr[index]));
+      }
+
+    }
 
     //hightlight text box based on time of day (past, present, or future)
     $( "textarea" ).addClass(function( index ) {
@@ -166,6 +180,7 @@
         }else if (parseInt(caltime) - parseInt(time) < 0) {
          addedClass = "past";
         }   
+        updateTextArea(index);
         return addedClass;
      }
      if (index === 1) {  
@@ -175,7 +190,8 @@
           addedClass = "future";
         }else if (parseInt(caltime) - parseInt(time) < 0) {
          addedClass = "past";
-        }   
+        }  
+        updateTextArea(index); 
         return addedClass;
      }
      if (index === 2) {  
@@ -185,7 +201,8 @@
           addedClass = "future";
         }else if (parseInt(caltime) - parseInt(time) < 0) {
          addedClass = "past";
-        }   
+        }
+        updateTextArea(index);   
         return addedClass;
      }
      if (index === 3) {  
@@ -196,6 +213,7 @@
         }else if (parseInt(caltime) - parseInt(time) < 0) {
          addedClass = "past";
         }   
+        updateTextArea(index);
         return addedClass;
      }
      if (index === 4) {  
@@ -206,6 +224,7 @@
         }else if (parseInt(caltime) - parseInt(time) < 0) {
          addedClass = "past";
         }   
+        updateTextArea(index);
         return addedClass;
      }
      if (index === 5) {  
@@ -215,7 +234,8 @@
           addedClass = "future";
         }else if (parseInt(caltime) - parseInt(time) < 0) {
          addedClass = "past";
-        }   
+        }
+        updateTextArea(index);   
         return addedClass;
      }
      if (index === 6) {  
@@ -225,7 +245,8 @@
           addedClass = "future";
         }else if (parseInt(caltime) - parseInt(time) < 0) {
          addedClass = "past";
-        }   
+        }  
+        updateTextArea(index); 
         return addedClass;
      }
      if (index === 7) {  
@@ -235,7 +256,8 @@
           addedClass = "future";
         }else if (parseInt(caltime) - parseInt(time) < 0) {
          addedClass = "past";
-        }   
+        }  
+        updateTextArea(index); 
         return addedClass;
      }
      if (index === 8) {  
@@ -245,7 +267,8 @@
           addedClass = "future";
         }else if (parseInt(caltime) - parseInt(time) < 0) {
          addedClass = "past";
-        }   
+        }  
+        updateTextArea(index); 
         return addedClass;
      }
 
@@ -256,8 +279,6 @@
     
     $(document).on('click','button', function(event) {
       event.preventDefault();  
-
-      if (test) { console.log('click pta before '+ dayPlanArr); }
 
       let $index = $(this).attr('saveid');
       console.log("The saveid of the button is: " + $index);
@@ -272,6 +293,7 @@
 
     });  
   
+    
 
     </script>
 

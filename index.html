@@ -30,13 +30,12 @@
       <p id="currentDay" class="lead"></p>
     </header>
     <div class="container">
-        <div class="row">
-            <!--<div class="col-2 bg-success  align-middle"></div>-->
+        <div class="row">            
             <div class="col-2 align-middle border border-dark bg-success " >
                 <h5 class="text-center">9:00am</h5>
             </div>
-            <textarea id="9:00" id="0" class="col-8 "></textarea>           
-            <button class="col-1 border border-dark"> Button </button>
+            <textarea id="0" class="col-8 "></textarea>           
+            <button saveid="0" class="col-1 border border-dark far fa-save "> Save </button>
         </div>
 
         <div class="row">
@@ -44,9 +43,7 @@
               <h5 class="text-center">10:00am</h5>
             </div>
             <textarea id="1" class="col-8 "></textarea>                         
-            <button class="col-1 border border-dark">
-                Button
-            </button>
+            <button saveid="1" class="col-1 border border-dark far fa-save "> Save </button>            
         </div>
 
         <div class="row">
@@ -54,18 +51,15 @@
               <h5 class="text-center">11:00am</h5>
             </div>
             <textarea id="2" class="col-8 "></textarea>            
-            <button class="col-1 border border-dark">
-                Button
-            </button>
+            <button saveid="2" class="col-1 border border-dark far fa-save "> Save </button>            
         </div>
 
-        <div class="row">
-            <!--<div class="col-2 bg-success  align-middle"></div>-->
+        <div class="row">         
             <div class="col-2 align-middle border border-dark bg-success " >
                 <h5 class="text-center">12:00pm</h5>
             </div>
             <textarea id="3" class="col-8 "></textarea>           
-            <button class="col-1 border border-dark"> Button </button>
+            <button saveid="3" class="col-1 border border-dark far fa-save "> Save </button>
         </div>
 
         <div class="row">
@@ -73,9 +67,7 @@
               <h5 class="text-center">01:00pm</h5>
             </div>
             <textarea id="4" class="col-8 "></textarea>            
-            <button class="col-1 border border-dark">
-                Button
-            </button>
+            <button saveid="4" class="col-1 border border-dark far fa-save "> Save </button>            
         </div>
 
         <div class="row">
@@ -83,9 +75,7 @@
               <h5 class="text-center">02:00pm</h5>
             </div>
             <textarea id="5" class="col-8 "></textarea>            
-            <button class="col-1 border border-dark">
-                Button
-            </button>
+            <button saveid="5" class="col-1 border border-dark far fa-save "> Save </button>            
         </div>
 
         <div class="row">
@@ -93,9 +83,7 @@
               <h5 class="text-center">03:00pm</h5>
             </div>
             <textarea id="6" class="col-8 "></textarea>            
-            <button class="col-1 border border-dark">
-                Button
-            </button>
+            <button saveid="6" class="col-1 border border-dark far fa-save "> Save </button>            
         </div>
 
         <div class="row">
@@ -103,9 +91,7 @@
               <h5 class="text-center">04:00pm</h5>
             </div>
             <textarea id="7" class="col-8 "></textarea>            
-            <button class="col-1 border border-dark">
-                Button
-            </button>
+            <button saveid="7" class="col-1 border border-dark far fa-save "> Save </button>            
         </div>
 
         <div class="row">
@@ -113,9 +99,7 @@
               <h5 class="text-center">05:00pm</h5>
             </div>
             <textarea id="8" class="col-8 "></textarea>            
-            <button class="col-1 border border-dark">
-                Button
-            </button>
+            <button saveid="8" class="col-1 border border-dark far fa-save "> Save </button>            
         </div>
 
         <div class="row ">
@@ -141,38 +125,154 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
 
     <script type="text/javascript">
-    
+    var test = false ;
+    var dayPlanArr = [];
+
 
     //add the current day to the header  
     $("#currentDay").html(moment().format('dddd, MMMM Do'));
-    
-    
-    //console.log(dateDiv);
-    //dateDiv.text = moment().format('dddd, MMMM Do');
-      var a = moment().format('h:mm a').charAt(0);
-      console.log(parseInt(a));
-      //$( "textarea" ).addClass("present");
+        
+    var a = moment().format('HH:mm').charAt(0) + moment().format('HH:mm').charAt(1);
+    console.log(parseInt(a));
+      //retrieve planned its from local storage and put them on the day planner
 
-    //hightlight text box based on time of day (past present or future)
+    let dayPlans = JSON.parse(localStorage.getItem("dayPlans"));
+    if (dayPlans !== null) {
+      dayPlanArr = dayPlans;
+    }
+    console.log(parseInt(dayPlanArr));
+
+
+    //hightlight text box based on time of day (past, present, or future)
     $( "textarea" ).addClass(function( index ) {
+      
       var addedClass;
-      var caltime = 9;
-      var time = moment().format('h:mm a').charAt(0);
 
-      if (parseInt(time) < 9 ) {
-        addedClass = "future";
-      } else if (parseInt(time) > 17) {
-        addedClass = "past";
-      }else if (parseInt(caltime) - parseInt(time) === 0) {
-        addedClass = "present";
-      } else if (parseInt(caltime) - parseInt(time) > 0) {
-        addedClass = "future";
-      }else if (parseInt(caltime) - parseInt(time) < 0) {
-        addedClass = "past";
-      }   
-      return addedClass;
+      //adjust the calendar hour each time through the loop 
+      var caltime = 9 + index;
+      
+      //get the first two characters of the current time 
+      var time = moment().format('HH:mm').charAt(0) + moment().format('HH:mm').charAt(1);
+      
+
+      //console.log("index = " + index + " caltime " + caltime + " Current hour " + time); 
+
+      //determine color class for each hour of the day 
+     if (index === 0) {  
+        if (parseInt(caltime) - parseInt(time) === 0) {
+         addedClass = "present";
+        } else if (parseInt(caltime) - parseInt(time) > 0) {
+          addedClass = "future";
+        }else if (parseInt(caltime) - parseInt(time) < 0) {
+         addedClass = "past";
+        }   
+        return addedClass;
+     }
+     if (index === 1) {  
+        if (parseInt(caltime) - parseInt(time) === 0) {
+         addedClass = "present";
+        } else if (parseInt(caltime) - parseInt(time) > 0) {
+          addedClass = "future";
+        }else if (parseInt(caltime) - parseInt(time) < 0) {
+         addedClass = "past";
+        }   
+        return addedClass;
+     }
+     if (index === 2) {  
+        if (parseInt(caltime) - parseInt(time) === 0) {
+         addedClass = "present";
+        } else if (parseInt(caltime) - parseInt(time) > 0) {
+          addedClass = "future";
+        }else if (parseInt(caltime) - parseInt(time) < 0) {
+         addedClass = "past";
+        }   
+        return addedClass;
+     }
+     if (index === 3) {  
+        if (parseInt(caltime) - parseInt(time) === 0) {
+         addedClass = "present";
+        } else if (parseInt(caltime) - parseInt(time) > 0) {
+          addedClass = "future";
+        }else if (parseInt(caltime) - parseInt(time) < 0) {
+         addedClass = "past";
+        }   
+        return addedClass;
+     }
+     if (index === 4) {  
+        if (parseInt(caltime) - parseInt(time) === 0) {
+         addedClass = "present";
+        } else if (parseInt(caltime) - parseInt(time) > 0) {
+          addedClass = "future";
+        }else if (parseInt(caltime) - parseInt(time) < 0) {
+         addedClass = "past";
+        }   
+        return addedClass;
+     }
+     if (index === 5) {  
+        if (parseInt(caltime) - parseInt(time) === 0) {
+         addedClass = "present";
+        } else if (parseInt(caltime) - parseInt(time) > 0) {
+          addedClass = "future";
+        }else if (parseInt(caltime) - parseInt(time) < 0) {
+         addedClass = "past";
+        }   
+        return addedClass;
+     }
+     if (index === 6) {  
+        if (parseInt(caltime) - parseInt(time) === 0) {
+         addedClass = "present";
+        } else if (parseInt(caltime) - parseInt(time) > 0) {
+          addedClass = "future";
+        }else if (parseInt(caltime) - parseInt(time) < 0) {
+         addedClass = "past";
+        }   
+        return addedClass;
+     }
+     if (index === 7) {  
+        if (parseInt(caltime) - parseInt(time) === 0) {
+         addedClass = "present";
+        } else if (parseInt(caltime) - parseInt(time) > 0) {
+          addedClass = "future";
+        }else if (parseInt(caltime) - parseInt(time) < 0) {
+         addedClass = "past";
+        }   
+        return addedClass;
+     }
+     if (index === 8) {  
+        if (parseInt(caltime) - parseInt(time) === 0) {
+         addedClass = "present";
+        } else if (parseInt(caltime) - parseInt(time) > 0) {
+          addedClass = "future";
+        }else if (parseInt(caltime) - parseInt(time) < 0) {
+         addedClass = "past";
+        }   
+        return addedClass;
+     }
+
     });
     
+    
+    //When the button is clicked save the text to local storage 
+    
+    $(document).on('click','button', function(event) {
+      event.preventDefault();  
+
+      if (test) { console.log('click pta before '+ dayPlanArr); }
+
+      let $index = $(this).attr('saveid');
+      console.log("The saveid of the button is: " + $index);
+      let txtEl = "#" + $index
+      let $value = $(txtEl).val();
+
+      console.log("The text area says: " + $value);
+      dayPlanArr[$index] = $value;
+      console.log("The array is says: " + dayPlanArr);
+
+      localStorage.setItem("dayPlans", JSON.stringify(dayPlanArr));
+
+    });  
+  
+
     </script>
 
 

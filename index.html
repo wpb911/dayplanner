@@ -105,21 +105,12 @@
         <div class="row ">
             <div class="col-2 bg-success border border-dark border-right-0"></div>
               
-            <div class="col-8 bg-success border border-dark border-left-0 border-right-0"> </div>
+            <div class="col-8 bg-success border border-dark border-left-0 border-right-0"></div>
                        
-            <button class="col-1 bg-success border-dark border-left-0 border-right-0"> 
-                
-            </button>
-        </div>
-     
-      
+            <button class="col-1 bg-success border-dark border-left-0 border-right-0"></button>   
+            
+        </div>         
     </div>
-
-    
-
-
-
-
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
@@ -128,50 +119,48 @@
     
     //initialize variables
     var test = false ;
-     
-
-
+    
     //add the current day to the header  
     $("#currentDay").html(moment().format('dddd, MMMM Do'));
         
-    var a = moment().format('HH:mm').charAt(0) + moment().format('HH:mm').charAt(1);
-    console.log(parseInt(a));
-
       //retrieve the day's plans from local storage and put them on the day planner
 
-    let dayPlans = JSON.parse(localStorage.getItem("dayPlans"));
-    if (dayPlans !== null) {
-      dayPlanArr = dayPlans;
-    } else {
+      let dayPlans = JSON.parse(localStorage.getItem("dayPlans"));
+
+      if (dayPlans !== null) {
+       dayPlanArr = dayPlans;
+      } else {
 
       dayPlanArr = new Array(9);
-    }
-    console.log(dayPlanArr);
-
-    function updateTextArea(index) {
-      if (dayPlanArr[index] !== "") {
-        let txtEl = "#" + index;
-        $(txtEl).val(dayPlanArr[index]);
-        console.log($(txtEl).text(dayPlanArr[index]));
+      }
+    
+      //if the array is not empty 
+      function updateTextArea(index) {
+        if (dayPlanArr[index] !== "") {
+         let txtEl = "#" + index;
+         $(txtEl).val(dayPlanArr[index]);
+        
+        }
       }
 
-    }
-
-    //hightlight text box based on time of day (past, present, or future)
-    $( "textarea" ).addClass(function( index ) {
+      //hightlight text box based on time of day (past, present, or future)
+      //index will match the ids for the buttons and textareas for ease of translation
+      $( "textarea" ).addClass(function( index ) {
       
       var addedClass;
 
       //adjust the calendar hour each time through the loop 
       var caltime = 9 + index;
       
-      //get the first two characters of the current time 
+      //get the first two characters of the current time in military time for time of day
       var time = moment().format('HH:mm').charAt(0) + moment().format('HH:mm').charAt(1);
-      
+           
+      //determine color class for each hour of the day by subtracting the 
+      //current time from the calendar time for each hour of the work day 
+      //if the difference is zero it is the current hour (red)
+      //if the difference is positive it is a future hour (green)
+      //if the difference is negative it is a past hour (gray)
 
-      //console.log("index = " + index + " caltime " + caltime + " Current hour " + time); 
-
-      //determine color class for each hour of the day 
      if (index === 0) {  
         if (parseInt(caltime) - parseInt(time) === 0) {
          addedClass = "present";
@@ -272,31 +261,32 @@
         return addedClass;
      }
 
-    });
+    });    
     
-    
-    //When the button is clicked save the text to local storage 
+    //When the any save button is clicked save the text to local storage 
     
     $(document).on('click','button', function(event) {
       event.preventDefault();  
 
+      //get the button id 
       let $index = $(this).attr('saveid');
-      console.log("The saveid of the button is: " + $index);
+      
+      //create the id tag for the textarea retrieve from the id of the button
       let txtEl = "#" + $index
       let $value = $(txtEl).val();
 
-      console.log("The text area says: " + $value);
-      dayPlanArr[$index] = $value;
-      console.log("The array is says: " + dayPlanArr);
+      // if the value is not null then save to local storage 
+      // a blank can be save so the textarea can be cleared if there is nothing 
+      // to do in that hour
+      if ($value != null) {
+        dayPlanArr[$index] = $value;        
+        localStorage.setItem("dayPlans", JSON.stringify(dayPlanArr));
+      }
 
-      localStorage.setItem("dayPlans", JSON.stringify(dayPlanArr));
-
-    });  
-  
+    });   
     
 
     </script>
-
 
   </body>
 </html>

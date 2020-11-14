@@ -11,7 +11,7 @@ When viewing the page a sample rendering of the main page is displayed below:
 
 To view the actual page in realtime go to [WorkDayPlanner](https://wpb911.github.io/dayplanner/).
 
-## Contirbuting
+## Contributing
 Pull requests are welcome. Feedback is appreciated.
 
 
